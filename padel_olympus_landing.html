@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PadelOlympus | The New Era of Padel</title>
+    <meta name="description" content="PadelOlympus - Your ultimate destination for real-time rankings, player profiles, and padel knowledge.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Manrope:wght@800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #dfec60;
+            --bg: #2e3132;
+            --surface: rgba(46, 49, 50, 0.4);
+            --surface-hover: rgba(46, 49, 50, 0.8);
+            --border: rgba(255, 255, 255, 0.05);
+            --border-hover: rgba(223, 236, 96, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background hero image */
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(46, 49, 50, 0.92) 0%, rgba(46, 49, 50, 0.75) 100%),
+                url('padel_olympus_hero_1776996613073.png') center / cover no-repeat;
+            z-index: 0;
+        }
+
+        /* Ambient glow */
+        .glow {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(80vw, 600px);
+            height: min(80vw, 600px);
+            background: radial-gradient(circle, rgba(223, 236, 96, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Main layout */
+        .page {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Hero header */
+        .hero {
+            margin-bottom: 3.5rem;
+            max-width: 720px;
+        }
+
+        .eyebrow {
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(3.5rem, 10vw, 6rem);
+            font-weight: 900;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--primary), #a3e635);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.55);
+            font-weight: 400;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Feature cards grid */
+        .cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 860px;
+        }
+
+        @media (min-width: 640px) {
+            .cards {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.4s, border-color 0.4s, transform 0.4s;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-8px);
+        }
+
+        .icon-wrap {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: background 0.4s;
+        }
+
+        .card:hover .icon-wrap {
+            background: rgba(204, 255, 0, 0.15);
+        }
+
+        .icon-wrap svg {
+            width: 36px;
+            height: 36px;
+            color: rgba(255, 255, 255, 0.6);
+            stroke: currentColor;
+            transition: color 0.4s;
+        }
+
+        .card:hover .icon-wrap svg {
+            color: var(--primary);
+        }
+
+        .card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #fff;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+    <div class="glow"></div>
+
+    <main class="page">
+
+        <div class="hero">
+            <div class="eyebrow">Welcome to PadelOlympus</div>
+            <h1>PADEL <span>OLYMPUS</span></h1>
+            <p class="subtitle">
+                Your ultimate destination for real-time rankings, player profiles, and padel knowledge.
+            </p>
+        </div>
+
+        <div class="cards">
+
+            <!-- Players card -->
+            <div class="card">
+                <div class="icon-wrap">
+                    <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                </div>
+                <h2>Players</h2>
+                <p>Explore official FIP rankings, deep-dive profiles, and player stats.</p>
+            </div>
+
+            <!-- Knowledge card -->
+            <div class="card">
+                <div class="icon-wrap">
+                    <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h2>Knowledge</h2>
+                <p>Test your padel rules and history knowledge in the Knowledge Arena.</p>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
